@@ -1,0 +1,3 @@
+Tipologia do lab2
+
+[PC1] —— [Switch1] —— [Roteador] —— [Switch2] —— [PC2]
