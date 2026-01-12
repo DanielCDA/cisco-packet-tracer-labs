@@ -1,0 +1,48 @@
+Aula 5 — Testando Conectividade entre Redes Diferentes
+
+🎯 Objetivo da Aula
+
+Aprender a:
+
+Entrar no modo de configuração do roteador Cisco.
+
+Configurar:
+Hostname
+Banner de segurança
+Interfaces com IP
+Ativar interfaces com no shutdown
+
+Testar ping entre PCs de redes diferentes via roteador.
+
+[PC1] —— [Switch1] —— [Roteador] —— [Switch2] —— [PC2]
+
+PASSO 2 – Configurar os PCs
+PC1							PC2
+IP Address: 192.168.1.2					IP Address: 192.168.2.2
+Subnet Mask: 255.255.255.0				Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.1.1				Default Gateway: 192.168.2.1
+
+
+PASSO 4 – Comandos de Configuração Básica
+Digite os seguintes comandos no terminal do roteador:
+
+Router> enable                        # entra no modo privilegiado
+Router# configure terminal            # entra no modo de configuração global
+Router(config)# hostname RoteadorBDA  # muda o nome do dispositivo
+RoteadorBDA(config)# banner motd #Acesso restrito à rede BDA!#  # mensagem de aviso
+RoteadorBDA(config)# end
+RoteadorBDA# write memory             # salva a configuração
+
+PASSO 5 – Configurar as interfaces
+
+Agora você vai configurar duas interfaces do roteador com IPs diferentes (uma para cada rede).
+
+Interface para a rede do PC1:				Interface para a rede do PC2:
+RoteadorBDA# configure terminal				RoteadorBDA# configure terminal	
+RoteadorBDA(config)# interface gigabitEthernet0/0	RoteadorBDA(config)# interface gigabitEthernet0/1
+RoteadorBDA(config-if)# description Rede 192.168.1.0	RoteadorBDA(config-if)# description Rede 192.168.2.0
+RoteadorBDA(config-if)# ip address 192.168.1.1 255.255.255.0		ip address 192.168.2.1 255.255.255.0
+RoteadorBDA(config-if)# no shutdown			RoteadorBDA(config-if)# no shutdown	
+RoteadorBDA(config-if)# exit
+
+testar o ping
